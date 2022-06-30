@@ -22,3 +22,8 @@
     height: 70px;
     width: 70px;
 }
+
+.card-img {
+    border: 1px solid #000000;
+    background-color: #353535;
+}
