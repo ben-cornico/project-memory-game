@@ -4,7 +4,8 @@ export class Header extends Component {
   render() {
     return (
       <div className='header'>
-        <img className="header-logo" src="https://img.icons8.com/cotton/64/000000/brain--v1.png"/> Memory Game
+        <img src="https://img.icons8.com/stickers/100/000000/harry-potter-.png"/>
+        Memory Game
       </div>
     )
   }
