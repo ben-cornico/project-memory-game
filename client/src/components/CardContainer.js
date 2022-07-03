@@ -1,88 +1,190 @@
-import React, { Component } from 'react';
-import Loading from './Loading';
+// import React, { Component } from 'react';
+// import Loading from './Loading';
+// import Card from './Card'
 
-export class CardContainer extends Component {
-  constructor(props) {
-    super()
-    this.state = {
-      loading: true,
-      level: 1,
-      numImg: 1 * 3,
-      displayedChar: [],
-      chars: []
-    }
+// export class CardContainer extends Component {
+//   constructor(props) {
+//     super()
+//     this.state = {
+//       loading: true,
+//       level: 1,
+//       numImg: 1*3,
+//       displayedChars: [],
+//       chars: []
+//     }
 
-    this.trimChars = this.trimChars.bind(this)
-  }
+//     let displayed = []
 
-  async componentDidMount() {
-    const res = await fetch(`http://hp-api.herokuapp.com/api/characters`)
-    const characters = await res.json();
+//   }
 
-    // this.setState({
-    //   ...this.state,
-    //   chars: characters
-    // })
+//   async componentDidMount() {
+//     // await this.loadData().then(data => {
+//     //   this.setState({
+//     //     chars: this.trimData(data)
+//     //   });
+//     // });
 
+//     const chars = await this.loadData()
+//     const trimData = this.trimData(chars)
 
-    const listChar = this.trimChars(characters);
-    this.setState({
-      ...this.state,
-      chars: listChar
-    });
-    console.log(this.state)
+//     this.setState({
+//       chars: trimData,
+//     })
 
-    // for(let x=1; x<= this.state.numImg; x++) {
-    //   let randomNum = Math.floor(Math.random() * 402);
-    //   this.setState({
-    //     ...this.state,
-        
-    //     loading: false,
-    //     displayedChar: [...this.state.displayedChar, this.state.chars[randomNum]],
+//     const displayedChars = await this.displayChars();
+//     await this.get
+//     console.log(displayedChars)
+//     this.setState({
+//       displayedChars: displayedChars,
+//       loading: false,
+//     })
 
-    //   })
-    // }
-
-    console.log(this.state)
     
-  }
+//     console.log(this.state);
+//   }
 
-  trimChars = (characters) => {
+//   getData(data) {
+//     return (new Promise((resolve) => {
+//       this.setState({
+
+//       })
+//     }))
+//   }
+
+//   async loadData() {
+//     try {
+//       const res = await fetch(`http://hp-api.herokuapp.com/api/characters`)
+//       const characters = await res.json();
+//       return characters
+//     } catch(err) {
+//       console.error(err)
+//     }
+//   }
+
+  // trimData(characters) {
+  //   const listChars = []
+  //     characters.map(char => {
+  //       if(char.image !== "") {
+  //         listChars.push(char)
+  //       }
+  //     })
+  //     return listChars
+  // }
+
+
+  // displayChars() {
+  //   return (new Promise((resolve) => {
+  //     const list = []
+  //     for(let x=1; x<= this.state.numImg; x++) {
+  //       let randomNum = Math.floor(Math.random() * 24);
+  //       list.push(this.state.chars[randomNum]);
+  //     }
+  //     console.log(list)
+  //     resolve(list)
+  //   }))
+
+  // }
+//   render() {
+//     return (
+//       <div className='card-container'>
+//         {/* {
+//           this.state.loading || !this.state.displayedChars ? (
+//             this.state.displayedChars.map(char => {
+//               return (
+//                 <Card name={char.name} image={char.image} />
+//               )
+//             })
+//           ) : (
+//             <Loading />
+//           )
+//         } */}
+
+// {this.state.displayedChars.map(char => {
+//               return (
+//                 <Card name={char.name} image={char.image} />
+//               )
+//             })}
+//       </div>
+//     )
+//   }
+// }
+
+// export default CardContainer
+
+import React, { useEffect, useState } from 'react';
+import Loading from './Loading';
+import Card from './Card'
+
+function CardContainer() {
+
+
+  const [chars, setChars] = useState({});
+  const [level, setLevel] = useState(1);
+  const [displayed, setDisplayed] = useState([])
+
+  const trimData = (data) => {
     const listChars = []
-      characters.map(char => {
+      data.map(char => {
         if(char.image !== "") {
           listChars.push(char)
         }
       })
       return listChars
   }
+  const loadData = async () => {
+    const res = await fetch(`http://hp-api.herokuapp.com/api/characters`)
+    const data = await res.json();
+    const listData = trimData(data);
 
-  loadCards = () => {
-
+    setChars(listData)
   }
-  render() {
-    return (
-      <div className='card-container'>
-        {/* {
-          this.state.loading || !this.state.displayedChar ? (
-            <Loading />
-          ) : (
-            this.state.displayedChar.map(char => {
-              return (
-                <div className="card">
-                  <img srcSet={char.image} alt="" />
-                  <div className="card-name">
-                    {char.name}
-                  </div>
-                </div>
-              )
-            })
+
+
+
+  useEffect(() => {
+    const getData = async() => {
+      try {
+        const res = await fetch(`http://hp-api.herokuapp.com/api/characters`)
+        const data = await res.json();
+        const listData = trimData(data);
+
+        setChars(listData);
+      } catch(err) {
+        console.error(err)
+      }
+    }
+    getData()
+    console.log(chars)
+  }, [])
+  
+  useEffect(() => {
+    const list = []
+    const numImg = level * 3;
+    for(let x=1; x<= numImg; x++) {
+      let randomNum = Math.floor(Math.random() * 24);
+      list.push(chars[randomNum]);
+    }
+    setDisplayed(list)
+  }, [chars])
+  
+  return (
+    <div>
+      {
+        !displayed ?
+          <Loading />
+         : 
+
+         displayed.map((x => {
+          return (
+            <Card name={x.name} image={x.image} />
           )
-          
-        } */}
-      </div>
-    )
-  }
+         }))
+
+        
+      }
+
+    </div>
+  )
 }
 
 export default CardContainer
