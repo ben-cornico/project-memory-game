@@ -30,11 +30,13 @@ export class Card extends Component {
   }
   render() {
     return (
-      <div>
-        <img src={this.props.image} alt="" srcset="" />
-        <img src={this.state.primaryAttr} alt="" />
-        <span>{this.props.name}</span>
+      <div style={{backgroundImage: `url(${this.props.image})`}} className="hero-card" onClick={this.props.shuffle}>
 
+        <div className="info">
+          <img src={this.state.primaryAttr} alt="" />
+          <span className='hero-name'>{this.props.name}</span>
+        </div>
+        
       </div>
     )
   }

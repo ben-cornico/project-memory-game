@@ -9,13 +9,11 @@ export class CardContainer extends Component {
     this.state = {
       loading: true,
       level: 1,
-      heroes: this.importAll(require.context('./Dota2heroes', false, /\.(png|jpe?g|svg)$/)),
-      temp: Data,
+      heroes: Data,
       displayed: [],
     }
 
-
-    console.log(Data)
+    this.shuffle = this.shuffle.bind(this)
   }
 
   componentDidMount() {
@@ -31,6 +29,26 @@ export class CardContainer extends Component {
     return random;
   }
 
+  shuffle() {
+    const arr = this.state.displayed;
+    arr.sort(() => Math.random() -0.5);
+    
+    this.setState({
+      loading: true,
+    })
+
+    setTimeout(() => {
+      this.setState({
+        loading: false,
+        displayed: arr,
+      })
+    }, 500);
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log(prevProps)
+  }
+
   getDisplay() {
     const arr = []
     const numImg = this.state.level * 3;
@@ -41,8 +59,8 @@ export class CardContainer extends Component {
       arr.push(this.state.heroes[randomNum]);
     }
 
-    console.log(this.checkIfDuplicateExists(arr))
     this.setState({
+      loading: false,
       displayed: arr,
     })
   }
@@ -77,28 +95,18 @@ export class CardContainer extends Component {
   render() {
     return (
       <div className='card-container'>
-        {/* <div>
         {
-          this.state.displayed.length <= 0 ? (
+          this.state.loading || this.state.displayed.length <= 0 ? (
             <Loading />
           ) : (
-            this.state.heroes.map((x) => {
-              return <Card name={x.name} image={x.loc} />
+            this.state.displayed.map((x, index) => {
+              return <Card name={x.name} image={x.loc} primaryAttr={x.primaryAttr} shuffle={this.shuffle} key={index}/>
             })
           )
 
           
         }
-        </div> */}
 
-        <div>
-          {
-            this.state.temp.map(x => {
-              return <Card name={x.name} image={x.loc} primaryAttr={x.primaryAttr}/>
-            })
-          }
-        </div>
-        <Card name={this.state.temp[0].name} image={this.state.temp[0].loc} primaryAttr={this.state.temp[0].primaryAttr} />
       </div>
 
       

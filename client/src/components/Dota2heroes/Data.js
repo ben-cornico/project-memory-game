@@ -1,5 +1,7 @@
 
 
+
+
 const dotaHeroes = [
     {
         name: 'Abaddon',
@@ -324,7 +326,7 @@ const dotaHeroes = [
     },
     {
         name: "Nature's Prophet",
-        loc: require(`./nature's_prophet.png`),
+        loc: require(`./natures_prophet.png`),
         primaryAttr: 'agi'
     },
     {
