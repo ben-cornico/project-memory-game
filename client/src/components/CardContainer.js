@@ -77,7 +77,7 @@ export class CardContainer extends Component {
   render() {
     return (
       <div className='card-container'>
-        <div>
+        {/* <div>
         {
           this.state.displayed.length <= 0 ? (
             <Loading />
@@ -89,17 +89,19 @@ export class CardContainer extends Component {
 
           
         }
-        </div>
+        </div> */}
 
         <div>
           {
             this.state.temp.map(x => {
-              return <Card name={x.name} image={x.loc} />
+              return <Card name={x.name} image={x.loc} primaryAttr={x.primaryAttr}/>
             })
           }
         </div>
-
+        <Card name={this.state.temp[0].name} image={this.state.temp[0].loc} primaryAttr={this.state.temp[0].primaryAttr} />
       </div>
+
+      
     )
   }
 }
