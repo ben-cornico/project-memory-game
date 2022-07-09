@@ -1,7 +1,3 @@
-
-
-
-
 const dotaHeroes = [
     {
         name: 'Abaddon',
@@ -108,7 +104,6 @@ const dotaHeroes = [
         loc: require('./dark_seer.png'),
         primaryAttr: 'int'
     },
-    ,
     {
         name: 'Dark Willow',
         loc: require('./dark_willow.png'),
@@ -200,7 +195,7 @@ const dotaHeroes = [
         primaryAttr: 'agi'
     },
     {
-        name: 'Husker',
+        name: 'Huskar',
         loc: require('./huskar.png'),
         primaryAttr: 'str'
     },
