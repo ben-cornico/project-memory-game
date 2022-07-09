@@ -9,7 +9,7 @@ export class Card extends Component {
     this.state = {
       primaryAttr: ""
     }
-
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -28,9 +28,13 @@ export class Card extends Component {
     }
 
   }
+
+  handleClick(e) {
+    this.props.selected(this.props.name)
+  }
   render() {
     return (
-      <div style={{backgroundImage: `url(${this.props.image})`}} className="hero-card" onClick={this.props.shuffle}>
+      <div style={{backgroundImage: `url(${this.props.image})`}} className="hero-card" onClick={this.handleClick}>
 
         <div className="info">
           <img src={this.state.primaryAttr} alt="" />
