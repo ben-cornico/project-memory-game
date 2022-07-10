@@ -322,7 +322,7 @@ const dotaHeroes = [
     {
         name: "Nature's Prophet",
         loc: require(`./natures_prophet.png`),
-        primaryAttr: 'agi'
+        primaryAttr: 'int'
     },
     {
         name: 'Necrolyte',

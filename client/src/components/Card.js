@@ -13,20 +13,25 @@ export class Card extends Component {
   }
 
   componentDidMount() {
-    if(this.props.primaryAttr === 'agi') {
-      this.setState({
-        primaryAttr: heroAgi
-      })
-    } else if(this.props.primaryAttr === 'str'){
-      this.setState({
-        primaryAttr: heroStr
-      })
-    } else if(this.props.primaryAttr === 'int') {
-      this.setState({
-        primaryAttr: heroInt
-      })
+    console.log('called')
+    switch(this.props.primaryAttr) {
+      case 'agi': 
+        this.setState({
+          primaryAttr: heroAgi
+        })
+        break;
+      
+      case 'str':
+        this.setState({
+          primaryAttr: heroStr
+        })
+        break;
+      case 'int':
+        this.setState({
+          primaryAttr: heroInt
+        })
+        break;
     }
-
   }
 
   handleClick(e) {

@@ -2,6 +2,11 @@
     background: fff4dc
 
 */
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
 .loader {
     border: 16px solid #f3f3f3;
     border-radius: 50%;
@@ -48,18 +53,6 @@
 }
 
 
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 1300px;
-    margin: auto;
-    margin-top: 2rem;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-
-}
-
 .hero-card {
     height: 140px;
     width: 250px;
@@ -84,4 +77,31 @@
     color: #ffffff;
     font-size: larger;
     word-wrap: break-word;
+}
+
+body {
+    width: 100%;
+    background-color: #353535;
+    margin:
+}
+
+.score{
+    display: flex;
+    justify-content: space-between;
+    margin: 0.25rem;
+    font-size: larger;
+    font-weight: 500;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem
+}
+
+.score > p {
+    text-align: center;
+    width: 100%;
+
 }

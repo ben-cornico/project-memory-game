@@ -7,17 +7,15 @@ export class CardContainer extends Component {
   constructor(props) {
     super()
     this.state = {
-      
-      temp: [],
       loading: true,
       level: 1,
       heroes: Data,
       displayed: [],
       selected: [],
       score: 0,
+      highestScore: 0,
     }
 
-    console.log(this.state.heroes)
     this.shuffle = this.shuffle.bind(this);
     this.select = this.select.bind(this)
   }
@@ -42,7 +40,22 @@ export class CardContainer extends Component {
   }
 
   gameOver() {
-    alert(`GAME OVER \n SCORE: ${this.state.score}`)
+    if(this.state.score > this.state.highestScore) {
+      this.setState({
+        highestScore: this.state.score,
+      })
+    }
+    alert(`GAME OVER \n SCORE: ${this.state.score}`);
+
+    this.setState({
+      loading: true,
+      level: 1,
+      displayed: [],
+      selected: [],
+      score: 0,
+    })
+
+    this.getDisplay()
   }
 
   select(name) {
@@ -109,7 +122,6 @@ export class CardContainer extends Component {
     this.setState({
       loading: false,
       displayed: arr,
-      temp: nums
     })
   }
 
@@ -117,52 +129,31 @@ export class CardContainer extends Component {
     return new Set(arr).size !== arr.length
   }
 
-  importAll(r) {
-    let images = {};
-    let arr = [];
-    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-
-
-    //LOOP TO TURN OBJECT INTO ARRAY
-    for(const prop in images) {
-      let wordSplit = prop.split("_");
-      let  joined = wordSplit.join(' ');
-      let pngRemove = joined.split(".png");
-      pngRemove.pop();
-      arr.push({
-        name: pngRemove,
-        loc: images[prop]
-      })
-    }
-    return arr
-  }
-  
-
-
-
   render() {
     return (
-      <div className='card-container'>
-        <p>SCORE: {this.state.score}</p>
-        {
-          this.state.loading || this.state.displayed.length <= 0 ? (
-            <Loading />
-          ) : (
-            this.state.displayed.map((x, index) => {
-              console.log(this.state)
-              console.log(x)
-              return <Card name={x.name} image={x.loc} primaryAttr={x.primaryAttr} selected={this.select} key={index}/>
-            })
-          )
+      <div className='body'>
+        <div className="container">
+          <div className="score">
+            <p className="current-score">SCORE: {this.state.score}</p>
+            <p className="current-level">LEVEL: {this.state.level}</p>
+            <p className="highest-score">HIGHEST SCORE: {this.state.highestScore}</p>
+          </div>
 
+          <div className='card-container'>
           
-        }
-        {/* {
-          this.state.heroes.map((x, index) => {
-            return <Card name={x.name} image={x.loc} primaryAttr={x.primaryAttr} selected={this.select} key={index}/>
-          })
-        } */}
+            {
+              this.state.loading || this.state.displayed.length <= 0 ? (
+                <Loading />
+              ) : (
+                this.state.displayed.map((x, index) => {
+                  return <Card name={x.name} image={x.loc} primaryAttr={x.primaryAttr} selected={this.select} key={index}/>
+                })
+              )
+            }
+          </div>
+        </div>
       </div>
+      
 
       
     )
