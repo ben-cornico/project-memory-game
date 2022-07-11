@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Loading from './Loading';
 import Card from './Card';
 import Data from './Dota2heroes/Data'
+import ModalNextLevel from './ModalNextLevel';
 
 export class CardContainer extends Component {
   constructor(props) {
@@ -14,19 +15,32 @@ export class CardContainer extends Component {
       selected: [],
       score: 0,
       highestScore: 0,
+      nextLevelModal: false,
     }
+    const test = "testing lang"
 
     this.shuffle = this.shuffle.bind(this);
-    this.select = this.select.bind(this)
+    this.select = this.select.bind(this);
+    this.loadNextLevel = this.loadNextLevel.bind(this)
   }
 
   componentDidMount() {
     this.getDisplay()
   }
 
+  resetGame() {
+    this.setState({
+      loading: true,
+      level: 1,
+      displayed: [],
+      selected: [],
+      score: 0,
+    })
+  }
+
   resetSelected() {
     this.setState({
-      selected: []
+      selected: [],
     })
   }
 
@@ -47,21 +61,14 @@ export class CardContainer extends Component {
     }
     alert(`GAME OVER \n SCORE: ${this.state.score}`);
 
-    this.setState({
-      loading: true,
-      level: 1,
-      displayed: [],
-      selected: [],
-      score: 0,
-    })
 
-    this.getDisplay()
+    this.resetGame();
+    this.getDisplay();
   }
 
   select(name) {
-    const numImg = this.state.level *3
     const arr = this.state.selected;
-    const isValid = arr.every(x => x != name);
+    const isValid = arr.every(x => x !== name);
     if(isValid) {
       this.setState({
         selected: [...this.state.selected, name],
@@ -73,9 +80,24 @@ export class CardContainer extends Component {
     }
 
   }
+  loadNextLevel() {
+    this.setState({
+      nextLevelModal: true,
+    })
 
+
+    setTimeout(() => {
+      this.setState({
+        nextLevelModal: false,
+      })
+    }, 1500);
+
+  }
+
+  
   componentDidUpdate(prevProps, prevState) {
-    if(prevState.score != this.state.score) {
+
+    if(prevState.score !== this.state.score) {
       if(this.state.selected.length === this.state.level * 3) {
         this.setState({
           level: this.state.level + 1
@@ -83,10 +105,13 @@ export class CardContainer extends Component {
       } else {
         this.shuffle()
       }
-    } else if(prevState.level != this.state.level) {
-      this.resetSelected()
-      this.getDisplay()
-    }
+    } else if(prevState.level !== this.state.level) {
+      if(prevState.level < this.state.level) {  
+        this.resetSelected();
+        this.getDisplay();
+        this.loadNextLevel();
+      }
+    } 
   }
 
   shuffle() {
@@ -123,36 +148,47 @@ export class CardContainer extends Component {
       loading: false,
       displayed: arr,
     })
+
   }
 
   checkIfDuplicateExists(arr) {
     return new Set(arr).size !== arr.length
   }
 
+
   render() {
     return (
-      <div className='body'>
-        <div className="container">
-          <div className="score">
-            <p className="current-score">SCORE: {this.state.score}</p>
-            <p className="current-level">LEVEL: {this.state.level}</p>
-            <p className="highest-score">HIGHEST SCORE: {this.state.highestScore}</p>
-          </div>
 
-          <div className='card-container'>
-          
-            {
-              this.state.loading || this.state.displayed.length <= 0 ? (
-                <Loading />
-              ) : (
-                this.state.displayed.map((x, index) => {
-                  return <Card name={x.name} image={x.loc} primaryAttr={x.primaryAttr} selected={this.select} key={index}/>
-                })
-              )
-            }
+      <>
+        {this.state.nextLevelModal ? (
+          <ModalNextLevel level={this.state.level}/>
+        ) : (
+          <div className='body'>
+            <div className="container">
+              <div className="score">
+                <p className="current-score">SCORE: {this.state.score}</p>
+                <p className="current-level">LEVEL: {this.state.level}</p>
+                <p className="highest-score">HIGHEST SCORE: {this.state.highestScore}</p>
+              </div>
+
+              <div className='card-container'>
+              
+                {
+                  this.state.loading || this.state.displayed.length <= 0 ? (
+                    <Loading />
+                  ) : (
+                    this.state.displayed.map((x, index) => {
+                      return <Card name={x.name} image={x.loc} primaryAttr={x.primaryAttr} selected={this.select} key={index}/>
+                    })
+                  )
+                }
+
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
+      </>
+      
       
 
       

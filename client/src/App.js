@@ -2,7 +2,6 @@ import './App.css';
 import './components/components.css'
 import Header from './components/Header';
 import CardContainer from './components/CardContainer'
-
 function App() {
   return (
     <div className="App">

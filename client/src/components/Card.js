@@ -13,7 +13,6 @@ export class Card extends Component {
   }
 
   componentDidMount() {
-    console.log('called')
     switch(this.props.primaryAttr) {
       case 'agi': 
         this.setState({
@@ -34,15 +33,20 @@ export class Card extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.setState({
+      primaryAttr: []
+    })
+  }
+
   handleClick(e) {
     this.props.selected(this.props.name)
   }
   render() {
     return (
       <div style={{backgroundImage: `url(${this.props.image})`}} className="hero-card" onClick={this.handleClick}>
-
         <div className="info">
-          <img src={this.state.primaryAttr} alt="" />
+          <img src={this.props.primaryAttr} alt="" />
           <span className='hero-name'>{this.props.name}</span>
         </div>
         
