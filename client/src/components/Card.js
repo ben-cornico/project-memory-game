@@ -5,32 +5,13 @@ import heroInt from './HeroTypeImg/int.png'
 
 export class Card extends Component {
   constructor(props) {
-    super()
-    this.state = {
-      primaryAttr: ""
-    }
-    this.handleClick = this.handleClick.bind(this)
-  }
+    super();
 
-  componentDidMount() {
-    switch(this.props.primaryAttr) {
-      case 'agi': 
-        this.setState({
-          primaryAttr: heroAgi
-        })
-        break;
-      
-      case 'str':
-        this.setState({
-          primaryAttr: heroStr
-        })
-        break;
-      case 'int':
-        this.setState({
-          primaryAttr: heroInt
-        })
-        break;
+    this.state = {
+      selected: false,
     }
+
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentWillUnmount() {
@@ -40,7 +21,11 @@ export class Card extends Component {
   }
 
   handleClick(e) {
-    this.props.selected(this.props.name)
+    this.setState({
+      selected: true,
+    });
+    
+    this.props.onSelectCard(this.state.selected)
   }
   render() {
     return (
