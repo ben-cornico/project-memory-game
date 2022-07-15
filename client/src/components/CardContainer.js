@@ -203,14 +203,16 @@
 
 import React, { Component } from 'react';
 import Data from './Dota2heroes/Data'
-import Card from './Card'
+import Card from './Card';
+import Loading from './Loading'
 
 export class CardContainer extends Component {
   constructor(props) {
     super()
     this.state ={
       heroes: Data,
-      cards: []
+      cards: [],
+      loading: false,
     }
 
 
@@ -228,8 +230,16 @@ export class CardContainer extends Component {
     arr.sort(() => Math.random() -0.5);
     
     this.setState({
-      cards: arr
+      loading: true,
     })
+
+    setTimeout(() => {
+      this.setState({
+        cards: arr,
+        loading: false,
+      })
+    }, 450);
+
   }
 
   select(cardStatus) {
@@ -279,8 +289,13 @@ export class CardContainer extends Component {
   render() {
     return (
       <div>
+        
         {
+         this.state.loading ? (
+          <Loading />
+         ) : (
           this.state.cards
+         )
         }
       </div>
     )
