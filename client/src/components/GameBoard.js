@@ -13,6 +13,9 @@ export class GameBoard extends Component {
             currentScore: 0,
             highestScore: 0,
         }
+
+        this.addScore = this.addScore.bind(this);
+        this.gameOver = this.gameOver.bind(this)
     }
 
     componentDidMount() {
@@ -20,15 +23,17 @@ export class GameBoard extends Component {
             loading: false,
         })
     }
-  generateRandom(min, max, exclude) {
-    let random;
-    while (!random) {
-      const x = Math.floor(Math.random() * (max - min + 1)) + min;
-      if (exclude.indexOf(x) === -1) random = x;
-    }
-    return random;
-  }
 
+    addScore() {
+      this.setState({
+        currentScore: this.state.currentScore + 1
+      })
+    }
+
+    gameOver() {
+      console.log('GAME OVER')
+      console.log(this.state.currentScore)
+    }
   render() {
     return (
       <div className='game-board'>
@@ -36,7 +41,7 @@ export class GameBoard extends Component {
             this.state.loading ? (
                 <Loading />
             ) : (
-                <CardContainer level={this.state.level} />
+                <CardContainer level={this.state.level} addScore={this.addScore} gameOver={this.gameOver}/>
             )
         }
       </div>

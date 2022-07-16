@@ -7,26 +7,21 @@ export class Card extends Component {
   constructor(props) {
     super();
 
-    this.state = {
-      selected: false,
-    }
 
     this.handleClick = this.handleClick.bind(this)
   }
 
+
   componentWillUnmount() {
-    this.setState({
-      primaryAttr: []
-    })
+    console.log('card unmount')
   }
 
   handleClick(e) {
-    this.setState({
-      selected: true,
-    });
-    
-    this.props.onSelectCard(this.state.selected)
+    this.props.onSelectCard(this)
   }
+
+
+
   render() {
     return (
       <div style={{backgroundImage: `url(${this.props.image})`}} className="hero-card" onClick={this.handleClick}>

@@ -242,12 +242,19 @@ export class CardContainer extends Component {
 
   }
 
-  select(cardStatus) {
-    if(!cardStatus) {
-      console.log("GOOD CHOICE");
-      this.shuffle()
+  select(card) {
+    const indexNum = this.state.cards.findIndex(x => x.name === card.props.name);
+    const objCard = this.state.cards[indexNum];
+    if(objCard.isSelected) {
+      console.log("OUT KAN")
+      this.props.gameOver()
     } else {
-      console.log("GAME OVER");
+      objCard.isSelected = true;
+      this.setState({
+        cards: [...this.state.cards, objCard]
+      });
+      this.props.addScore();
+      this.shuffle();
     }
   }
 
@@ -271,18 +278,16 @@ export class CardContainer extends Component {
     for(let x=1; x <= numImg; x++) {
       const randomNum = this.generateRandom(1, 122, usedIndex);
       usedIndex.push(randomNum);
-      arr.push(this.state.heroes[randomNum]);
+      arr.push({...this.state.heroes[randomNum], selected: false});
       nums.push(randomNum)
     }
 
+    console.log(arr)
 
-    arr.map(x => {
-      return cardsContainer.push(<Card name={x.name} image={x.loc} primaryAttr={x.primaryAttr} onSelectCard={this.select} />)
-    })
 
     
     this.setState({
-      cards: cardsContainer,
+      cards: arr
     })
 
   }
@@ -294,7 +299,9 @@ export class CardContainer extends Component {
          this.state.loading ? (
           <Loading />
          ) : (
-          this.state.cards
+            this.state.cards.map(card => {
+              return <Card name={card.name} image={card.loc} primaryAttr={card.primaryAttr} onSelectCard={this.select} isSelected={card.selected}/>
+            })
          )
         }
       </div>
