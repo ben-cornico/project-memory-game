@@ -10,6 +10,7 @@ export class GameBoard extends Component {
             gameStatus: false,
             loading: true,
             level: 1,
+            levelScore: 0,
             currentScore: 0,
             highestScore: 0,
         }
@@ -26,8 +27,8 @@ export class GameBoard extends Component {
 
     componentDidUpdate(prevProps, prevState) {
       if(prevState.currentScore !== this.state.currentScore) {
-        const maxScoreLevel = this.state.level * 3;
-        if(maxScoreLevel === this.state.currentScore) {
+        const maxLevelScore = this.state.level * 3;
+        if(maxLevelScore === this.state.levelScore) {
           this.loadNextLevel();
         }
       }
@@ -47,6 +48,7 @@ export class GameBoard extends Component {
       this.setState({
         loading: true,
         level: this.state.level + 1,
+        levelScore: 0,
       })
 
       setTimeout(() => {
@@ -58,6 +60,7 @@ export class GameBoard extends Component {
 
     addScore() {
       this.setState({
+        levelScore: this.state.levelScore + 1,
         currentScore: this.state.currentScore + 1
       })
     }
@@ -70,6 +73,7 @@ export class GameBoard extends Component {
         this.setState({
           highestScore: this.state.currentScore,
           currentScore: 0,
+          levelScore:0,
           level: 1,
           loading: true,
         })
