@@ -15,13 +15,45 @@ export class GameBoard extends Component {
         }
 
         this.addScore = this.addScore.bind(this);
-        this.gameOver = this.gameOver.bind(this)
+        this.gameOver = this.gameOver.bind(this);
+        this.loadNextLevel = this.loadNextLevel.bind(this);
+        this.gameStart = this.gameStart.bind(this)
     }
 
     componentDidMount() {
+      this.gameStart();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+      if(prevState.currentScore !== this.state.currentScore) {
+        const maxScoreLevel = this.state.level * 3;
+        if(maxScoreLevel === this.state.currentScore) {
+          this.loadNextLevel();
+        }
+      }
+    }
+
+    gameStart() {
+
+      setTimeout(() => {
         this.setState({
-            loading: false,
+          loading: false,
         })
+      }, 400);
+
+    }
+
+    loadNextLevel() {
+      this.setState({
+        loading: true,
+        level: this.state.level + 1,
+      })
+
+      setTimeout(() => {
+        this.setState({
+          loading: false,
+        })
+      }, 450);
     }
 
     addScore() {
@@ -32,7 +64,19 @@ export class GameBoard extends Component {
 
     gameOver() {
       console.log('GAME OVER')
-      console.log(this.state.currentScore)
+      console.log(this.state.currentScore);
+
+      if(this.state.currentScore > this.state.highestScore) {
+        this.setState({
+          highestScore: this.state.currentScore,
+          currentScore: 0,
+          level: 1,
+          loading: true,
+        })
+
+        alert("YOU GOT A NEW HIGH SCORE")
+        this.gameStart()
+      }
     }
   render() {
     return (
