@@ -12,10 +12,6 @@ export class Card extends Component {
   }
 
 
-  componentWillUnmount() {
-    console.log('card unmount')
-  }
-
   handleClick(e) {
     this.props.onSelectCard(this)
   }

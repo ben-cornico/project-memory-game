@@ -36,13 +36,41 @@ export class GameBoard extends Component {
 
     gameStart() {
 
+      this.setState({
+        currentScore: 0,
+        levelScore:0,
+        loading: true,
+      })
+
+
+      if(this.state.currentScore > this.state.highestScore) {
+        this.setState({
+          highestScore: this.state.currentScore,
+        })
+      }
+
+
+      this.setState({
+        gameStatus: true
+      })
+
+      //TIMEOUT FOR LOADING TIME
       setTimeout(() => {
         this.setState({
           loading: false,
         })
-      }, 400);
+      }, 1000);
 
     }
+
+    gameOver() {
+      //STOP THE GAME
+      this.setState({
+        level: 1,
+        gameStatus: false,
+      })
+    }
+
 
     loadNextLevel() {
       this.setState({
@@ -65,40 +93,51 @@ export class GameBoard extends Component {
       })
     }
 
-    gameOver() {
-      console.log('GAME OVER')
-      console.log(this.state.currentScore);
 
-      if(this.state.currentScore > this.state.highestScore) {
-        this.setState({
-          highestScore: this.state.currentScore,
-          currentScore: 0,
-          levelScore:0,
-          level: 1,
-          loading: true,
-        })
-
-        alert("YOU GOT A NEW HIGH SCORE")
-        this.gameStart()
-      }
-    }
   render() {
     return (
-      <div className='game-board'>
+      <>
+        <div className={this.state.gameStatus ? 'modal-hide' : 'modal-display'}>
+          <div className="gameover-modal">
 
-<div className="score">
-  <p className="current-score">SCORE: {this.state.currentScore}</p>
-  <p className="current-level">LEVEL: {this.state.level}</p>
-  <p className="highest-score">HIGHEST SCORE: {this.state.highestScore}</p>
-</div>
-        {
-            this.state.loading ? (
-                <Loading level={this.state.level}/>
-            ) : (
-                <CardContainer level={this.state.level} addScore={this.addScore} gameOver={this.gameOver}/>
-            )
-        }
-      </div>
+            <p className='title'>GAME OVER</p>
+            {
+              this.state.currentScore > this.state.highestScore ? (
+                <p>You got a new High Score</p>
+              ) : (
+                ""
+              )
+            }
+            <p className='you-score'>YOUR SCORE: {this.state.currentScore}</p>
+
+            <div className="btn-group">
+                <p>Play Again?</p>
+                
+            <button className="btn-yes" onClick={this.gameStart}>YES</button>
+            <button className="btn-no">NO</button>
+            </div>
+          </div>
+        </div>
+        <div className='game-board'>
+
+          {
+              this.state.loading ? (
+                  <Loading level={this.state.level}/>
+              ) : (
+                <>
+
+                  <div className="score">
+                    <p className="current-score">SCORE: {this.state.currentScore}</p>
+                    <p className="current-level">LEVEL: {this.state.level}</p>
+                    <p className="highest-score">HIGHEST SCORE: {this.state.highestScore}</p>
+                  </div>
+                  <CardContainer level={this.state.level} addScore={this.addScore} gameOver={this.gameOver}/>
+                </>
+              )
+          }
+        </div>
+      </>
+      
     )
   }
 }
