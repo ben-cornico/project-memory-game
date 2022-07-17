@@ -55,7 +55,7 @@ export class GameBoard extends Component {
         this.setState({
           loading: false,
         })
-      }, 450);
+      }, 2000);
     }
 
     addScore() {
@@ -87,7 +87,7 @@ export class GameBoard extends Component {
       <div className='game-board'>
         {
             this.state.loading ? (
-                <Loading />
+                <Loading level={this.state.level}/>
             ) : (
                 <CardContainer level={this.state.level} addScore={this.addScore} gameOver={this.gameOver}/>
             )
