@@ -107,31 +107,7 @@ body {
 
 }
 
-.bg-modal {
-    position: absolute;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgb(0,0,0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal {
-    background-color: #3498db;
-    font-size: xx-large;
-    font-weight: 700;
-    padding: 1rem;
-    animation: myAnim 1s ease 0s 1 normal forwards;
-    color: #ffffff;
-}
-
-@keyframes myAnim {
-	0% {
-		transform: scale(0);
-	}
-
-	100% {
-		transform: scale(1);
-	}
+.game-board {
+    max-width: 1100px;
+    margin: auto;
 }

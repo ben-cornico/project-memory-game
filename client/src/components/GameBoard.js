@@ -85,6 +85,12 @@ export class GameBoard extends Component {
   render() {
     return (
       <div className='game-board'>
+
+<div className="score">
+  <p className="current-score">SCORE: {this.state.currentScore}</p>
+  <p className="current-level">LEVEL: {this.state.level}</p>
+  <p className="highest-score">HIGHEST SCORE: {this.state.highestScore}</p>
+</div>
         {
             this.state.loading ? (
                 <Loading level={this.state.level}/>

@@ -293,7 +293,7 @@ export class CardContainer extends Component {
   }
   render() {
     return (
-      <div>
+      <div className='card-container'>
         
         {
          this.state.loading ? (
