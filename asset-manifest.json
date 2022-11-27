@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/project-memory-game/static/css/main.77e004e6.css",
-    "main.js": "/project-memory-game/static/js/main.789e6a54.js",
+    "main.css": "/project-memory-game/static/css/main.a9192b8c.css",
+    "main.js": "/project-memory-game/static/js/main.5f2bf073.js",
     "static/media/oracle.png": "/project-memory-game/static/media/oracle.41893cd47fda95c9d8ae.png",
     "static/media/slark.png": "/project-memory-game/static/media/slark.f1236687dd6213f210c8.png",
     "static/media/vengeful_spirit.png": "/project-memory-game/static/media/vengeful_spirit.fe013d205a457743da7c.png",
@@ -127,11 +127,11 @@
     "static/media/legion_commander.png": "/project-memory-game/static/media/legion_commander.caaddc48d82d1444687f.png",
     "static/media/mars.png": "/project-memory-game/static/media/mars.0ce53473b2d21609b7cf.png",
     "index.html": "/project-memory-game/index.html",
-    "main.77e004e6.css.map": "/project-memory-game/static/css/main.77e004e6.css.map",
-    "main.789e6a54.js.map": "/project-memory-game/static/js/main.789e6a54.js.map"
+    "main.a9192b8c.css.map": "/project-memory-game/static/css/main.a9192b8c.css.map",
+    "main.5f2bf073.js.map": "/project-memory-game/static/js/main.5f2bf073.js.map"
   },
   "entrypoints": [
-    "static/css/main.77e004e6.css",
-    "static/js/main.789e6a54.js"
+    "static/css/main.a9192b8c.css",
+    "static/js/main.5f2bf073.js"
   ]
 }
