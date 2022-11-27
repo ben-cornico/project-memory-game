@@ -159,6 +159,7 @@ body {
 .you-score {
     text-align: center;
     font-size: 2rem;
+    color: #fff;
 }
 
 .btn-group {
@@ -185,4 +186,15 @@ body {
 
 .btn-yes {
     background-color: green;
+}
+
+.new-highscore {
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.how-to-play {
+    color: #ffff;
+    text-align: center;
 }

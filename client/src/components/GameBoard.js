@@ -103,7 +103,7 @@ export class GameBoard extends Component {
             <p className='title'>GAME OVER</p>
             {
               this.state.currentScore > this.state.highestScore ? (
-                <p>You got a new High Score</p>
+                <p className='new-highscore'>You got a new High Score</p>
               ) : (
                 ""
               )
@@ -125,12 +125,15 @@ export class GameBoard extends Component {
                   <Loading level={this.state.level}/>
               ) : (
                 <>
-
                   <div className="score">
                     <p className="current-score">SCORE: {this.state.currentScore}</p>
                     <p className="current-level">LEVEL: {this.state.level}</p>
                     <p className="highest-score">HIGHEST SCORE: {this.state.highestScore}</p>
                   </div>
+                  
+                  <p className="how-to-play">
+                    Get points by clicking on an image but don't click on any more than once!
+                  </p>
                   <CardContainer level={this.state.level} addScore={this.addScore} gameOver={this.gameOver}/>
                 </>
               )
