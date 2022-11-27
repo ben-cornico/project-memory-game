@@ -13,5 +13,5 @@ Get points by clicking on an image but don't click on any more than once!
   npm install
   npm run start
 ```
-
-<a href="https://ben-cornico.github.io/project-memory-game/">Live Demo</a>
+## Live Demo
+https://ben-cornico.github.io/project-memory-game/
